@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SC_PlayerProperties))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SC_PlayerAim))]
+
 [System.Serializable]
 public class GunInfo
 {
@@ -12,20 +14,19 @@ public class GunInfo
 
 public class SC_PlayerShoot : MonoBehaviour
 {
+    SC_PlayerProperties playerProperties;
     GameObject gun;
     Transform muzzlePos;
     GameObject bullet;
-    public bool canShoot;
-    public float shootRate;
     float shootRateCount;
 
-    public float bulletSpeed;
 
     Animator playerUpperAnim;
     GameObject playerArms;
     // Start is called before the first frame update
     void Start()
     {
+        playerProperties = gameObject.GetComponent<SC_PlayerProperties>();
         playerUpperAnim = GameObject.Find("Player_Upper").GetComponent<Animator>();
         playerArms = GameObject.Find("Player_ArmR");
         muzzlePos = GameObject.Find("Muzzle").transform;
@@ -40,32 +41,81 @@ public class SC_PlayerShoot : MonoBehaviour
 
     public void OnShoot()
     {
-        if (Input.GetMouseButton(0) && canShoot)
+        if (playerProperties.canShoot)
         {
-            Debug.Log("FIRED!");
-            shootRateCount = shootRate;
-            Shoot();
-            playerUpperAnim.SetTrigger("Shoot");
+            //Auto
+            if (playerProperties.fireType == FireType.Auto)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    Debug.Log("FIRED!");
+                    shootRateCount = playerProperties.shootRate;
+                    Shoot();
+                    playerUpperAnim.SetTrigger("Shoot");
+                }
+            }
+
+            if (playerProperties.fireType == FireType.Semi)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("FIRED!");
+                    shootRateCount = playerProperties.shootRate;
+                    Shoot();
+                    playerUpperAnim.SetTrigger("Shoot");
+                }
+            }
+
+            if (playerProperties.fireType == FireType.Manual)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("FIRED!");
+                    shootRateCount = playerProperties.shootRate;
+                    Shoot();
+                    playerUpperAnim.SetTrigger("Shoot");
+                    playerUpperAnim.SetTrigger("ManualLoad");
+                }
+            }
+
+
+
         }
     }
 
     public void CheckCanShoot()
     {
-        if (SC_PlayerProperties.SharedInstance.isAiming)
+        //Depend on FireType
+        //Manual
+
+
+
+        //Automatic & Semi
+
+
+        if (shootRateCount > 0)
+        {
+            shootRateCount -= Time.deltaTime;
+        }
+        if (shootRateCount <= 0)
+        {
+            shootRateCount = 0;
+        }
+
+        if (playerProperties.isAiming)
         {
             if (shootRateCount > 0)
             {
-                canShoot = false;
-                shootRateCount -= Time.deltaTime;
+                playerProperties.canShoot = false;
             }
             if (shootRateCount <= 0)
             {
-                canShoot = true;
+                playerProperties.canShoot = true;
             }
         }
         else
         {
-            canShoot = false;
+            playerProperties.canShoot = false;
         }
 
     }
@@ -79,7 +129,7 @@ public class SC_PlayerShoot : MonoBehaviour
             bullet.transform.rotation = muzzlePos.transform.rotation;
             bullet.SetActive(true);
 
-            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * bulletSpeed);
+            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * playerProperties.bulletSpeed);
 
 
         }

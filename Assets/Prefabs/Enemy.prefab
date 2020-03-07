@@ -103,14 +103,14 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1628607475
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300044, guid: 07550b8d95d03c348b7cc67cd955f3b2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_Sprite: {fileID: 21300000, guid: 67afbdf2a32fdb34fb78dafdba7ff490, type: 3}
+  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.46, y: 0.74}
+  m_Size: {x: 0.95, y: 1.7529411}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -154,8 +154,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.1904762, y: 1.7857143}
-    newSize: {x: 0.46, y: 0.74}
+    oldSize: {x: 0.95, y: 1.7529411}
+    newSize: {x: 0.95, y: 1.7529411}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -173,7 +173,7 @@ Animator:
   m_GameObject: {fileID: 8296466519088867939}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 847faf848faeb5c4ebdd9a9de3e0eaea, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -197,6 +197,15 @@ MonoBehaviour:
   defaultHP: 10
   regenDelay: 2
   regenPerSec: 1
+  CanMove: 1
+  DefaultSpeed: 2
+  damage: 0
+  attackPush: 0
+  OnScanning: 1
+  startTimeBtwAttack: 0
+  attackRadius: 0
+  attackDash: 0
+  attackPos: {fileID: 5630773661671206140}
 --- !u!114 &1845497328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,9 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af515a1111556545994056fdce62e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanMove: 1
   IsEngaging: 0
-  DefaultSpeed: 2
   farDistanceMin: 1.5
   farDistanceMax: 2
   closeDistance: 1
@@ -229,13 +236,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0adf8ee1311500c459972ba2a2d77f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnScanning: 1
-  timeBtwAttack: 0
-  startTimeBtwAttack: 1.2
-  attackRadius: 0.4
-  attackDash: 0
-  Target: {fileID: 0}
-  attackPos: {fileID: 5630773661671206140}
-  damage: 0
-  attackPush: 200
-  attackTarget: {fileID: 0}

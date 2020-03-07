@@ -7,9 +7,7 @@ public class SC_EnemyMovement : MonoBehaviour
     Animator enemyAnim;
 
     [Header("Movement")]
-    public bool CanMove = true;
     public bool IsEngaging;
-    public float DefaultSpeed;
     public float farDistanceMin;
     public float farDistanceMax;
     private float farDistance;
@@ -20,7 +18,7 @@ public class SC_EnemyMovement : MonoBehaviour
 
 
 
-
+    SC_EnemyProperties enemyProperties;
     Rigidbody2D enemyPhysics;
     public GameObject Target;
     private float defaultScaleX;
@@ -28,6 +26,7 @@ public class SC_EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyProperties = GetComponent<SC_EnemyProperties>();
         farDistance = Random.Range(farDistanceMin, farDistanceMax);
         Target = GameObject.Find("Player");
         enemyPhysics = GetComponent<Rigidbody2D>();
@@ -45,7 +44,7 @@ public class SC_EnemyMovement : MonoBehaviour
             RequestAttack();
         }
 
-        if (CanMove)
+        if (enemyProperties.CanMove)
         {
 
 
@@ -64,12 +63,12 @@ public class SC_EnemyMovement : MonoBehaviour
 
     public void AllowMoving()
     {
-        CanMove = true;
+        enemyProperties.CanMove = true;
     }
 
     public void NotAllowMoving()
     {
-        CanMove = false;
+        enemyProperties.CanMove = false;
     }
 
     //Attack Requesting
@@ -105,12 +104,12 @@ public class SC_EnemyMovement : MonoBehaviour
 
         if (Mathf.Abs(distanceFromTarget) > farDistanceMax) //walk towards
         {
-            enemyPhysics.velocity = new Vector2(transform.localScale.normalized.x * DefaultSpeed, enemyPhysics.velocity.y);
+            enemyPhysics.velocity = new Vector2(transform.localScale.normalized.x * enemyProperties.DefaultSpeed, enemyPhysics.velocity.y);
             enemyAnim.SetFloat("MoveDir", 1);
         }
         if (Mathf.Abs(distanceFromTarget) < farDistanceMin) //walk back
         {
-            enemyPhysics.velocity = new Vector2(-transform.localScale.normalized.x * DefaultSpeed, enemyPhysics.velocity.y);
+            enemyPhysics.velocity = new Vector2(-transform.localScale.normalized.x * enemyProperties.DefaultSpeed, enemyPhysics.velocity.y);
             enemyAnim.SetFloat("MoveDir", -1);
         }
 
@@ -135,13 +134,13 @@ public class SC_EnemyMovement : MonoBehaviour
 
         if (Mathf.Abs(distanceFromTarget) > closeDistance)
         {
-            enemyPhysics.velocity = new Vector2(transform.localScale.normalized.x * DefaultSpeed, enemyPhysics.velocity.y);
+            enemyPhysics.velocity = new Vector2(transform.localScale.normalized.x * enemyProperties.DefaultSpeed, enemyPhysics.velocity.y);
             enemyAnim.SetFloat("MoveDir", 1);
 
         }
         if (Mathf.Abs(distanceFromTarget) < closeDistance - 0.2f)
         {
-            enemyPhysics.velocity = new Vector2(-transform.localScale.normalized.x * DefaultSpeed, enemyPhysics.velocity.y);
+            enemyPhysics.velocity = new Vector2(-transform.localScale.normalized.x * enemyProperties.DefaultSpeed, enemyPhysics.velocity.y);
             enemyAnim.SetFloat("MoveDir", -1);
 
         }

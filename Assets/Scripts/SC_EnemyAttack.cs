@@ -6,27 +6,19 @@ public class SC_EnemyAttack : MonoBehaviour
 {
     Animator enemyAnim;
 
-    public bool OnScanning = true;
-    [SerializeField]
     float timeBtwAttack;
-    public float startTimeBtwAttack;
-    LayerMask whatIsPlayer;
-    public float attackRadius;
-
-    public float attackDash;
 
     Rigidbody2D enemyPhysics;
-    public GameObject Target;
+    GameObject Target;
+    LayerMask whatIsPlayer;
 
-    public Transform attackPos;
-    public float damage;
-    public float attackPush;
-    public Collider2D attackTarget;
+    Collider2D attackTarget;
 
+    SC_EnemyProperties enemyProperties;
     SC_CameraController cameraController;
     SC_EnemyMovement enemyMovement;
 
-
+    
 
 
 
@@ -36,6 +28,7 @@ public class SC_EnemyAttack : MonoBehaviour
         Target = GameObject.Find("Player");
         enemyPhysics = GetComponent<Rigidbody2D>();
         enemyMovement = GetComponent<SC_EnemyMovement>();
+        enemyProperties = GetComponent<SC_EnemyProperties>();
         enemyAnim = GetComponent<Animator>();
         whatIsPlayer = LayerMask.GetMask("Player");
         cameraController = FindObjectOfType<SC_CameraController>();
@@ -47,14 +40,14 @@ public class SC_EnemyAttack : MonoBehaviour
     {
         if (timeBtwAttack <= 0)
         {
-            OnScanning = true;
+            enemyProperties.OnScanning = true;
         }
         else
         {
             timeBtwAttack -= Time.deltaTime;
         }
 
-        if (OnScanning && enemyMovement.IsEngaging)
+        if (enemyProperties.OnScanning && enemyMovement.IsEngaging)
         {
             ScanForAttack();
         }
@@ -64,10 +57,10 @@ public class SC_EnemyAttack : MonoBehaviour
 
     public void ScanForAttack()
     {
-        if (timeBtwAttack <= 0 && OnScanning && Mathf.Abs(enemyMovement.distanceFromTarget) < enemyMovement.closeDistance)
+        if (timeBtwAttack <= 0 && enemyProperties.OnScanning && Mathf.Abs(enemyMovement.distanceFromTarget) < enemyMovement.closeDistance)
         {
-            timeBtwAttack = startTimeBtwAttack;
-            OnScanning = false;
+            timeBtwAttack = enemyProperties.startTimeBtwAttack;
+            enemyProperties.OnScanning = false;
             enemyMovement.CancelAttack();
             enemyAnim.SetTrigger("Attack");
             Debug.Log("Enemy Attack Triggered");
@@ -78,20 +71,10 @@ public class SC_EnemyAttack : MonoBehaviour
     public void Attack()
     {
         enemyPhysics.velocity = new Vector2(0, enemyPhysics.velocity.y);
-        enemyPhysics.AddForce(Vector2.right * gameObject.transform.localScale.x * attackDash);
+        enemyPhysics.AddForce(Vector2.right * gameObject.transform.localScale.x * enemyProperties.attackDash);
 
         enemyMovement.CancelAttack(); 
-        attackTarget = null;
 
-
-        //Hitbox
-        attackTarget = Physics2D.OverlapCircle(attackPos.position, attackRadius, whatIsPlayer);
-        if (attackTarget != null)
-        {
-            attackTarget.transform.position = new Vector2(attackPos.position.x, attackTarget.transform.position.y);
-            attackTarget.GetComponent<SC_PlayerProperties>().Attacked(damage,attackPush * transform.localScale.x); //getcomponent and takedamage
-            Debug.Log("Player Attacked");
-        }
 
 
     }
@@ -101,19 +84,19 @@ public class SC_EnemyAttack : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, attackRadius);
+        Gizmos.DrawWireSphere(enemyProperties.attackPos.position, enemyProperties.attackRadius);
     }
     
 
 
     void AllowtoAttack()
     {
-        OnScanning = true;
+        enemyProperties.OnScanning = true;
     }
 
     void NotAllowtoAttack()
     {
-        OnScanning = false;
+        enemyProperties.OnScanning = false;
     }
 }
 

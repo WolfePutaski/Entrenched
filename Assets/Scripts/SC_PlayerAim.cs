@@ -9,14 +9,11 @@ public class SC_PlayerAim : MonoBehaviour
     GameObject head;
     GameObject arm;
 
-    public Vector3 cursor;
-    public Vector3 aimDir;
-    public float angle;
+    Vector3 cursor;
+    Vector3 aimDir;
+    float angle;
 
-    public bool allowLookAt;
-
-
-    float defaultScaleX;
+   float defaultScaleX;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +23,7 @@ public class SC_PlayerAim : MonoBehaviour
         arm = GameObject.Find("Player_Upper");
 
         defaultScaleX = transform.localScale.x;
-       
+
     }
 
     // Update is called once per frame
@@ -34,7 +31,6 @@ public class SC_PlayerAim : MonoBehaviour
     {
         crosshair.transform.parent = null;
         LookAt();
-        LookAtCheck();
     }
 
     void LookAt()
@@ -46,22 +42,22 @@ public class SC_PlayerAim : MonoBehaviour
 
         angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
 
-            if (crosshair.transform.position.x > arm.transform.position.x)
-            {
-                transform.localScale = new Vector2(defaultScaleX, transform.localScale.y);
-                arm.transform.localScale = new Vector2(1, 1);
-                head.transform.localScale = new Vector2(1, 1);
-                head.transform.eulerAngles = new Vector3(0, 0, angle / 2);
+        if (crosshair.transform.position.x > arm.transform.position.x)
+        {
+            transform.localScale = new Vector2(defaultScaleX, transform.localScale.y);
+            arm.transform.localScale = new Vector2(1, 1);
+            head.transform.localScale = new Vector2(1, 1);
+            head.transform.eulerAngles = new Vector3(0, 0, angle / 2);
 
 
 
-            }
-            //if (cursor.x <= arm.transform.position.x)
-            if (crosshair.transform.position.x <= arm.transform.position.x)
+        }
+        //if (cursor.x <= arm.transform.position.x)
+        if (crosshair.transform.position.x <= arm.transform.position.x)
 
-            {
-                transform.localScale = new Vector2(-defaultScaleX, transform.localScale.y);
-            if (allowLookAt)
+        {
+            transform.localScale = new Vector2(-defaultScaleX, transform.localScale.y);
+            if (SC_PlayerProperties.SharedInstance.allowLookAt)
             {
                 arm.transform.localScale = new Vector2(-1, -1);
 
@@ -73,17 +69,17 @@ public class SC_PlayerAim : MonoBehaviour
             }
 
             head.transform.localScale = new Vector2(1, 1);
-                head.transform.eulerAngles = new Vector3(0, 0, (180 + angle) / 2);
-                if (angle >= 90)
-                {
-                    head.transform.eulerAngles = new Vector3(0, 0, (angle - 180) / 2);
-                }
-
+            head.transform.eulerAngles = new Vector3(0, 0, (180 + angle) / 2);
+            if (angle >= 90)
+            {
+                head.transform.eulerAngles = new Vector3(0, 0, (angle - 180) / 2);
             }
+
+        }
 
 
         //if (SC_PlayerProperties.SharedInstance.isAiming)
-        if (allowLookAt)
+        if (SC_PlayerProperties.SharedInstance.allowLookAt)
         {
             arm.transform.eulerAngles = new Vector3(0, 0, angle);
 
@@ -93,9 +89,5 @@ public class SC_PlayerAim : MonoBehaviour
             arm.transform.eulerAngles = new Vector3(0, 0, 0);
 
         }
-    }
-
-    void LookAtCheck()
-    {
     }
 }

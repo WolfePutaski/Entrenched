@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SC_PlayerProperties))]
 public class SC_PlayerMelee : MonoBehaviour
 {
-
+    SC_PlayerProperties playerProperties;
     Animator upperAnim;
-    public bool canMelee;
-
-    public float meleeRate;
     float meleeRateCount;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerProperties = gameObject.GetComponent<SC_PlayerProperties>();
         upperAnim = GameObject.Find("Player_Upper").GetComponent<Animator>();
     }
 
@@ -26,11 +25,11 @@ public class SC_PlayerMelee : MonoBehaviour
 
     public void OnMelee()
     {
-        if (Input.GetMouseButtonDown(0) && canMelee)
+        if (Input.GetMouseButtonDown(0) && playerProperties.canMelee)
         {
             Debug.Log("MELEE!");
             upperAnim.SetTrigger("Melee");
-             meleeRateCount = meleeRate;
+             meleeRateCount = playerProperties.meleeRate;
 
         }
     }
@@ -41,21 +40,25 @@ public class SC_PlayerMelee : MonoBehaviour
         {
             if (meleeRateCount > 0)
             {
-                canMelee = false;
+                playerProperties.canMelee = false;
                 meleeRateCount -= Time.deltaTime;
-                SC_PlayerAim.SharedInstance.allowLookAt = true;
+                playerProperties.allowLookAt = true;
             }
             if (meleeRateCount <= 0)
             {
-                canMelee = true;
-                SC_PlayerAim.SharedInstance.allowLookAt = false;
+                playerProperties.canMelee = true;
+                playerProperties.allowLookAt = false;
             }
         }
         else
         {
-            canMelee = false;
+            playerProperties.canMelee = false;
         }
 
     }
+
+
+
+   
 }
 

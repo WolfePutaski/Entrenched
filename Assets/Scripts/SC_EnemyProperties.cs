@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class SC_EnemyProperties : MonoBehaviour
 {
+    [Header("Health")]
     public float defaultHP;
     float HP;
 
+    //HP REgen
     public float regenDelay;
     float regenDelayCount = 0;
     float regenRateCount = 0;
     public float regenPerSec;
+
+    [Header("Movement")]
+    public bool CanMove = true;
+    public float DefaultSpeed;
+
+
+    [Header("Attack")]
+    public float damage;
+    public float attackPush;
+    public bool OnScanning = true;
+    public float startTimeBtwAttack;
+    public float attackRadius;
+
+    public float attackDash;
+    public Transform attackPos;
+
 
     Rigidbody2D enemyPhysics;
     Animator enemyAnim;
@@ -24,19 +42,19 @@ public class SC_EnemyProperties : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (regenDelayCount <= 0)
-        {
-            if (HP > 0 && HP < defaultHP)
-            {
-                HealthRegen();
-            }
-        }
-        else
-        {
-            regenDelayCount -= Time.deltaTime;
-        }
+        //if (regenDelayCount <= 0)
+        //{
+        //    if (HP > 0 && HP < defaultHP)
+        //    {
+        //        HealthRegen();
+        //    }
+        //}
+        //else
+        //{
+        //    regenDelayCount -= Time.deltaTime;
+        //}
 
         if (HP<= 0)
         {
@@ -47,13 +65,13 @@ public class SC_EnemyProperties : MonoBehaviour
 
     public void TakeDamage(float damage, float push)
     {
-        regenDelayCount = regenDelay;
+        //regenDelayCount = regenDelay;
         HP -= damage;
 
         enemyPhysics.velocity = new Vector2(0, enemyPhysics.velocity.y);
         enemyPhysics.AddForce(Vector2.right * push);
 
-        enemyAnim.SetTrigger("Hurt");
+        //enemyAnim.SetTrigger("Hurt");
     }
 
     public void HealthRegen()

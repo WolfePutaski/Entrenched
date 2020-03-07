@@ -5,14 +5,12 @@ using UnityEngine;
 [RequireComponent(typeof(SC_PlayerProperties))]
 public class SC_PlayerMovement : MonoBehaviour
 {
-    public Rigidbody2D playerPhysics;
+    Rigidbody2D playerPhysics;
     Animator playerAnim;
-    public SC_PlayerProperties playerProperties;
+    SC_PlayerProperties playerProperties;
 
-    public float rollForce;
-    public float defaultSpeed = 0;
-    public float slowWalkSpeed = 0;
-    [HideInInspector] public float playerSpeed = 0;
+    //public float rollForce;
+    float playerSpeed = 0;
 
     public bool canMove = true;
 
@@ -31,58 +29,33 @@ public class SC_PlayerMovement : MonoBehaviour
         {       
                 Movement();
 
-            if (Input.GetKeyDown(KeyCode.V)
-    && Input.GetAxisRaw("Horizontal") != 0
-    )
-            {
-                Roll();
-            }
+            //if (Input.GetKeyDown(KeyCode.V)
+            //    && Input.GetAxisRaw("Horizontal") != 0)
+            //{
+            //    Roll();
+            //}
         }
 
 
     }
 
-    void Roll()
-    {
-        playerPhysics.velocity = new Vector2(0, playerPhysics.velocity.y);
-        playerPhysics.AddForce(Vector2.right * transform.localScale.x * rollForce, ForceMode2D.Impulse);
-        playerAnim.SetTrigger("Pressed Roll");
+    //void Roll()
+    //{
+    //    playerPhysics.velocity = new Vector2(0, playerPhysics.velocity.y);
+    //    playerPhysics.AddForce(Vector2.right * transform.localScale.x * rollForce, ForceMode2D.Impulse);
+    //    playerAnim.SetTrigger("Pressed Roll");
 
 
-    }
+    //}
 
     void Movement()
     {
 
-        playerSpeed = defaultSpeed;
+        playerSpeed = playerProperties.defaultSpeed;
 
 
         playerPhysics.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * playerSpeed * Time.deltaTime, playerPhysics.velocity.y);
-
-
-
-        //if (playerPhysics.velocity.x > 0)
-
-        //    {
-        //        gameObject.transform.localScale = new Vector2(1, gameObject.transform.localScale.y);
-        //    }
-        //    else if (playerPhysics.velocity.x< 0)
-        //    {
-        //        gameObject.transform.localScale = new Vector2(-1, gameObject.transform.localScale.y);
-        //    }
-
         playerAnim.SetFloat("Moving", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
-    }
-
-
-    void NotAllowMove()
-    {
-        canMove = false;
-    }
-
-    void AllowMove()
-    {
-        canMove = true;
     }
 
     void OnDodge()

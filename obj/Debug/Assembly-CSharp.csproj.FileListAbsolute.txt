@@ -1,0 +1,2 @@
+D:\IDD\2019-2\IDD228 Aj.Real\Project ENTRENCHED\ENTRENCHED\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\IDD\2019-2\IDD228 Aj.Real\Project ENTRENCHED\ENTRENCHED\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

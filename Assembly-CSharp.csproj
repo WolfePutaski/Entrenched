@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\SC_PlayerMelee.cs" />
+    <Compile Include="Assets\SC_PlayerWeaponClasses.cs" />
     <Compile Include="Assets\Scripts\SC_CameraController.cs" />
     <Compile Include="Assets\Scripts\SC_EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\SC_EnemyMovement.cs" />
