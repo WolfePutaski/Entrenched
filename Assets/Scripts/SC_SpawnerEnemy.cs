@@ -41,7 +41,7 @@ public class SC_SpawnerEnemy : MonoBehaviour
     public void SpawnEnemy()
     {
         Instantiate(enemy);
-        enemy.transform.position = new Vector2(spawners[Random.Range(0, spawners.Count)].transform.position.x, 2);
+        enemy.transform.position = spawners[Random.Range(0, spawners.Count)].transform.position;
         spawnCooldownCount = spawnCooldown;
 
     }

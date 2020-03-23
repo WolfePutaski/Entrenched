@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5630773661671206140}
-  m_Layer: 13
+  m_Layer: 11
   m_Name: EnemyAttackPos
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146189564694281455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.78, y: 1.26, z: 0}
+  m_LocalPosition: {x: 0.455, y: 1.505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8296466519088867936}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 17839889}
   - component: {fileID: 1845497328}
   - component: {fileID: 1714070790211081706}
-  m_Layer: 13
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8296466519088867939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.159815, y: 2, z: 0}
+  m_LocalPosition: {x: 20, y: 14.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5630773661671206140}
@@ -82,6 +82,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -93,6 +94,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -102,11 +104,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1628607475
+  m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 67afbdf2a32fdb34fb78dafdba7ff490, type: 3}
-  m_Color: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1b9beca803185064c8ccf96f6f35ca28, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,18 +152,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.042073622, y: 0.82222223}
+  m_Offset: {x: -0.24641657, y: 1.0135908}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.95, y: 1.7529411}
+    oldSize: {x: 1.1911764, y: 2.0264707}
     newSize: {x: 0.95, y: 1.7529411}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.65758395, y: 1.6444445}
+  m_Size: {x: 0.70299435, y: 2.0271816}
   m_EdgeRadius: 0
 --- !u!95 &17839888
 Animator:
@@ -173,9 +175,9 @@ Animator:
   m_GameObject: {fileID: 8296466519088867939}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a070a3bb393258d4397182be8bc9b581, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -194,18 +196,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5231642fa56672f41a966a64f9cc7b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultHP: 10
+  enemyPhysics: {fileID: 0}
+  enemyAnim: {fileID: 0}
+  defaultHP: 5
   regenDelay: 2
   regenPerSec: 1
   CanMove: 1
+  distanceFromTarget: 0
   DefaultSpeed: 2
-  damage: 0
-  attackPush: 0
+  Target: {fileID: 0}
+  canAttack: 1
   OnScanning: 1
-  startTimeBtwAttack: 0
-  attackRadius: 0
+  attackDistance: 1
+  attackDamage: 1
   attackDash: 0
+  attackPush: 500
+  startTimeBtwAttack: 0.5
+  attackRadius: 0.34
+  timeBtwAttack: 0.5
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 512
   attackPos: {fileID: 5630773661671206140}
+  attackTarget: {fileID: 0}
 --- !u!114 &1845497328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,12 +231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af515a1111556545994056fdce62e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEngaging: 0
-  farDistanceMin: 1.5
-  farDistanceMax: 2
-  closeDistance: 1
-  distanceFromTarget: 0
-  Target: {fileID: 0}
 --- !u!114 &1714070790211081706
 MonoBehaviour:
   m_ObjectHideFlags: 0

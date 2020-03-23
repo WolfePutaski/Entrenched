@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(SC_PlayerProperties))]
 public class SC_PlayerMovement : MonoBehaviour
 {
+   
     Rigidbody2D playerPhysics;
     Animator playerAnim;
     SC_PlayerProperties playerProperties;
@@ -12,7 +13,6 @@ public class SC_PlayerMovement : MonoBehaviour
     //public float rollForce;
     float playerSpeed = 0;
 
-    public bool canMove = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,7 +25,7 @@ public class SC_PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (playerProperties.canMove)
         {       
                 Movement();
 

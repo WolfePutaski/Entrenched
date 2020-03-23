@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum FireType
 {
@@ -29,52 +30,74 @@ public class SC_PlayerProperties : MonoBehaviour
     [Header("Health")]
     public float HP;
     public float MaxHP;
+    //UI
+    public Text healthText;
+
 
     [Header("Movement")]
-    [HideInInspector] public bool canMove;
+    public bool canMove;
     public float defaultSpeed = 0;
     public float slowWalkSpeed = 0;
     [HideInInspector] public bool allowLookAt;
 
 
     [Header("Melee")]
-    public Transform meleePos;
+    //public Transform meleePos;
+    public Transform meleePosA;
+    public Transform meleePosB;
     public bool canMelee;
     public float meleeRate;
     public Collider2D[] enemiesToDamage;
     public LayerMask whatIsEnemies;
 
+    public float buttRange;
     public float meleeRadius;
     public float meleeDamage;
     public float meleePushForce;
 
 
     [Header("Shooting")]
+    public Vector3 defaultAimOffset;
+    public Vector3 aimOffset;
     public bool isAiming;
     public bool canShoot;
 
     //WeaponStats for Alpha
     public float shootDamage;
     public float shootRate;
+    public float recoilKick;
     public float bulletSpeed;
     public FireType fireType;
+    public int magSize;
+    public int ammoInMag;
 
-    [Header("AttackRequest")]
+    public List<WeaponStats> demoGuns;
 
-    public int MaxMeleeAttackers = 1;
-    public List<GameObject> MeleeAttackers;
+    [System.Serializable]
+    public class WeaponStats
+    {
+        public float shootDamage;
+        public float shootRate;
+        public int magSize;
+        public float bulletSpeed;
+        public float recoilKick;
+        public FireType fireType;
+    }
 
-    public int MaxRangedAttackers = 1;
-    public List<GameObject> RangedAttackers;
 
     // Start is called before the first frame update
     void Start()
     {
         SharedInstance = this;
-        HP = MaxHP;
         playerPhysics = GetComponent<Rigidbody2D>();
         playerAnim = gameObject.GetComponentInChildren<Animator>();
         upperAnim = GameObject.Find("Player_Upper").GetComponent<Animator>();
+
+        HP = MaxHP;
+        healthText = GameObject.Find("Health Text").GetComponent<Text>();
+
+
+
         //cameraController = FindObjectOfType<SC_CameraController>();
     }
 
@@ -82,23 +105,16 @@ public class SC_PlayerProperties : MonoBehaviour
     void Update()
     {
         IsAim();
-    }
+        UpdateUI();
+        WeaponSelect();
 
 
-    public void GetAttackRequest(GameObject requestor)
-    {
-        MeleeAttackers.RemoveAll(item => item == null);
-        if (MeleeAttackers.Count < MaxMeleeAttackers)
+        if (HP <= 0)
         {
-            if (!MeleeAttackers.Contains(requestor))
-            {
-                requestor.SendMessage("AllowtoAttack");
-                MeleeAttackers.Add(requestor);
-                Debug.Log("Attack Allowing");
-            }
+            Destroy(gameObject);
         }
-        else { }
     }
+
 
     public void IsAim()
     {
@@ -125,15 +141,13 @@ public class SC_PlayerProperties : MonoBehaviour
         }
     }
 
+    //public void AimOffsetUpdate()
+    //{
 
-    public void CancelAttacker(GameObject requestor)
-    {
-        MeleeAttackers.Remove(requestor);
-    }
-
+    //}
 
 
-    public void Attacked(float damage, float push)
+    public void TakeDamage(float damage, float push)
     {
         //if (playerBlock.isBlocking)
         //{
@@ -146,25 +160,27 @@ public class SC_PlayerProperties : MonoBehaviour
         //{
 
         //    cameraController.Shake();
-        //    //playerPhysics.velocity = new Vector2(0, playerPhysics.velocity.y);
-        //    playerPhysics.AddForce(Vector2.right* push);
-        //    playerAnim.SetTrigger("IsHurt");
-        //    HP -= damage;
+        canMove = false;
+        playerPhysics.velocity = new Vector2(0, playerPhysics.velocity.y);
+        playerPhysics.AddForce(Vector2.right * push);
+        playerAnim.SetTrigger("Hurt");
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        HP -= damage;
         //}
     }
 
     //Movement
-    void NotAllowMove()
+    void Deactive_Movement()
     {
         canMove = false;
     }
 
-    void AllowMove()
+    void Active_Movement()
     {
         canMove = true;
     }
 
-    void Detect_MeleeCollision()
+    public void Detect_MeleeCollision()
     {
         enemiesToDamage = null;
 
@@ -173,7 +189,8 @@ public class SC_PlayerProperties : MonoBehaviour
         //playerPhysics.AddForce(Vector2.right * gameObject.transform.localScale.x * attackDashForce);
 
         //Hitbox
-        enemiesToDamage = Physics2D.OverlapCircleAll(meleePos.position, meleeRadius, whatIsEnemies);
+        //enemiesToDamage = Physics2D.OverlapCircleAll(meleePos.position, meleeRadius, whatIsEnemies);
+        enemiesToDamage = Physics2D.OverlapAreaAll(meleePosA.position, meleePosB.position, whatIsEnemies);
         if (enemiesToDamage.Length > 0)
         {
             //cameraController.Shake();
@@ -187,10 +204,51 @@ public class SC_PlayerProperties : MonoBehaviour
         }
     }
 
-
+    void Return_Layer()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Player");
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(meleePos.position, meleeRadius);
+        //Gizmos.DrawWireSphere(meleePos.position, meleeRadius);
+    }
+
+    void WeaponSelect()
+    {
+        int i = 0;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            i = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            i = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            i = 2;
+        }
+
+        shootDamage = demoGuns[i].shootDamage;
+        shootRate = demoGuns[i].shootRate;
+        magSize = demoGuns[i].magSize;
+        fireType = demoGuns[i].fireType;
+        bulletSpeed = demoGuns[i].bulletSpeed;
+        recoilKick = demoGuns[i].recoilKick;
+        
+    }
+
+    void UpdateUI()
+    {
+        if (HP > 0)
+        {
+            healthText.text = string.Format("HP: {0}\nGun Damage: {1}\nFire Rate: {2}\nFire Mode: {3}", HP, shootDamage,shootRate,fireType);
+
+        }
+        if (HP <= 0)
+        {
+            healthText.text = "DEAD";
+        }
     }
 }

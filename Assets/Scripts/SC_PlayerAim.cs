@@ -5,12 +5,17 @@ using UnityEngine;
 public class SC_PlayerAim : MonoBehaviour
 {
     public static SC_PlayerAim SharedInstance;
+    SC_PlayerProperties playerProperties;
+    //GameObject aimTarget;
     GameObject crosshair;
+    GameObject gunCrosshair;
     GameObject head;
     GameObject arm;
 
     Vector3 cursor;
-    Vector3 aimDir;
+    Vector3 crosshairPos;
+    Vector3 defaultAimPos;
+    public Vector3 aimDir;
     float angle;
 
    float defaultScaleX;
@@ -19,9 +24,10 @@ public class SC_PlayerAim : MonoBehaviour
     {
         SharedInstance = this;
         crosshair = GameObject.Find("Crosshair");
+        gunCrosshair = GameObject.Find("GunCrosshair");
         head = GameObject.Find("Player_Head");
         arm = GameObject.Find("Player_Upper");
-
+        playerProperties = gameObject.GetComponent<SC_PlayerProperties>();
         defaultScaleX = transform.localScale.x;
 
     }
@@ -29,20 +35,44 @@ public class SC_PlayerAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        crosshair.transform.parent = null;
+        //crosshair.transform.parent = null;
         LookAt();
+        CrosshairUpdate();
+    }
+
+    void CrosshairUpdate()
+    {
+        defaultAimPos = cursor + playerProperties.defaultAimOffset;
+
+        gunCrosshair.SetActive(playerProperties.isAiming);
+        if (!playerProperties.isAiming)
+        {
+            gunCrosshair.transform.position = defaultAimPos;
+        }
+        if (gunCrosshair.transform.position != defaultAimPos)
+        {
+            gunCrosshair.transform.position = Vector3.Lerp(gunCrosshair.transform.position, defaultAimPos, Time.deltaTime);
+        }
+
+    }
+
+    public void aimKick()
+    {
+        gunCrosshair.transform.position += new Vector3(0, playerProperties.recoilKick, 0);
     }
 
     void LookAt()
     {
         cursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        crosshairPos = crosshair.transform.position;
         crosshair.transform.position = cursor;
+        
 
-        aimDir = (crosshair.transform.position - arm.transform.position).normalized;
+        aimDir = (gunCrosshair.transform.position - arm.transform.position).normalized;
 
         angle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
 
-        if (crosshair.transform.position.x > arm.transform.position.x)
+        if (cursor.x > arm.transform.position.x)
         {
             transform.localScale = new Vector2(defaultScaleX, transform.localScale.y);
             arm.transform.localScale = new Vector2(1, 1);
@@ -53,7 +83,7 @@ public class SC_PlayerAim : MonoBehaviour
 
         }
         //if (cursor.x <= arm.transform.position.x)
-        if (crosshair.transform.position.x <= arm.transform.position.x)
+        if (cursor.x <= arm.transform.position.x)
 
         {
             transform.localScale = new Vector2(-defaultScaleX, transform.localScale.y);

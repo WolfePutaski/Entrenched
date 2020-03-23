@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SC_EnemyProperties))]
 public class SC_EnemyAttack : MonoBehaviour
 {
     Animator enemyAnim;
 
-    float timeBtwAttack;
 
     Rigidbody2D enemyPhysics;
-    GameObject Target;
     LayerMask whatIsPlayer;
 
     Collider2D attackTarget;
 
     SC_EnemyProperties enemyProperties;
     SC_CameraController cameraController;
-    SC_EnemyMovement enemyMovement;
 
     
 
@@ -25,29 +23,34 @@ public class SC_EnemyAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Target = GameObject.Find("Player");
         enemyPhysics = GetComponent<Rigidbody2D>();
-        enemyMovement = GetComponent<SC_EnemyMovement>();
         enemyProperties = GetComponent<SC_EnemyProperties>();
-        enemyAnim = GetComponent<Animator>();
         whatIsPlayer = LayerMask.GetMask("Player");
+
         cameraController = FindObjectOfType<SC_CameraController>();
 
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (timeBtwAttack <= 0)
+        if (enemyProperties.canAttack)
         {
-            enemyProperties.OnScanning = true;
+            if (enemyProperties.timeBtwAttack <= 0)
+            {
+                enemyProperties.OnScanning = true;
+            }
+            else
+            {
+                enemyProperties.timeBtwAttack -= Time.deltaTime;
+            }
         }
         else
         {
-            timeBtwAttack -= Time.deltaTime;
+            enemyProperties.OnScanning = false;
         }
 
-        if (enemyProperties.OnScanning && enemyMovement.IsEngaging)
+        if (enemyProperties.OnScanning)
         {
             ScanForAttack();
         }
@@ -55,49 +58,19 @@ public class SC_EnemyAttack : MonoBehaviour
 
     }
 
-    public void ScanForAttack()
+    void ScanForAttack()
     {
-        if (timeBtwAttack <= 0 && enemyProperties.OnScanning && Mathf.Abs(enemyMovement.distanceFromTarget) < enemyMovement.closeDistance)
+        if (enemyProperties.timeBtwAttack <= 0 && enemyProperties.OnScanning && Mathf.Abs(enemyProperties.distanceFromTarget) < enemyProperties.attackDistance)
         {
-            timeBtwAttack = enemyProperties.startTimeBtwAttack;
+            enemyProperties.timeBtwAttack = enemyProperties.startTimeBtwAttack;
             enemyProperties.OnScanning = false;
-            enemyMovement.CancelAttack();
-            enemyAnim.SetTrigger("Attack");
+            enemyProperties.CanMove = false;
+            enemyProperties.enemyAnim.SetTrigger("Attack");
             Debug.Log("Enemy Attack Triggered");
 
         }
     }
 
-    public void Attack()
-    {
-        enemyPhysics.velocity = new Vector2(0, enemyPhysics.velocity.y);
-        enemyPhysics.AddForce(Vector2.right * gameObject.transform.localScale.x * enemyProperties.attackDash);
-
-        enemyMovement.CancelAttack(); 
-
-
-
-    }
-
-
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(enemyProperties.attackPos.position, enemyProperties.attackRadius);
-    }
-    
-
-
-    void AllowtoAttack()
-    {
-        enemyProperties.OnScanning = true;
-    }
-
-    void NotAllowtoAttack()
-    {
-        enemyProperties.OnScanning = false;
-    }
 }
 
 

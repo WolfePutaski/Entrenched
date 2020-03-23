@@ -15,6 +15,7 @@ public class GunInfo
 public class SC_PlayerShoot : MonoBehaviour
 {
     SC_PlayerProperties playerProperties;
+    SC_PlayerAim playerAim;
     GameObject gun;
     Transform muzzlePos;
     GameObject bullet;
@@ -28,6 +29,7 @@ public class SC_PlayerShoot : MonoBehaviour
     {
         playerProperties = gameObject.GetComponent<SC_PlayerProperties>();
         playerUpperAnim = GameObject.Find("Player_Upper").GetComponent<Animator>();
+        playerAim = GetComponent<SC_PlayerAim>();
         playerArms = GameObject.Find("Player_ArmR");
         muzzlePos = GameObject.Find("Muzzle").transform;
     }
@@ -37,21 +39,34 @@ public class SC_PlayerShoot : MonoBehaviour
     {
         CheckCanShoot();
         OnShoot();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
     }
+
+    public void Reload()
+    {
+        playerUpperAnim.SetTrigger("Reload");
+    }
+
+    public void FinishReload()
+    {
+        playerProperties.ammoInMag = playerProperties.magSize;
+    }
+
 
     public void OnShoot()
     {
-        if (playerProperties.canShoot)
+        if (playerProperties.canShoot && playerProperties.ammoInMag > 0)
         {
             //Auto
             if (playerProperties.fireType == FireType.Auto)
             {
                 if (Input.GetMouseButton(0))
                 {
-                    Debug.Log("FIRED!");
-                    shootRateCount = playerProperties.shootRate;
                     Shoot();
-                    playerUpperAnim.SetTrigger("Shoot");
                 }
             }
 
@@ -59,21 +74,16 @@ public class SC_PlayerShoot : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log("FIRED!");
                     shootRateCount = playerProperties.shootRate;
                     Shoot();
-                    playerUpperAnim.SetTrigger("Shoot");
                 }
             }
 
             if (playerProperties.fireType == FireType.Manual)
             {
                 if (Input.GetMouseButtonDown(0))
-                {
-                    Debug.Log("FIRED!");
-                    shootRateCount = playerProperties.shootRate;
+                { 
                     Shoot();
-                    playerUpperAnim.SetTrigger("Shoot");
                     playerUpperAnim.SetTrigger("ManualLoad");
                 }
             }
@@ -85,14 +95,6 @@ public class SC_PlayerShoot : MonoBehaviour
 
     public void CheckCanShoot()
     {
-        //Depend on FireType
-        //Manual
-
-
-
-        //Automatic & Semi
-
-
         if (shootRateCount > 0)
         {
             shootRateCount -= Time.deltaTime;
@@ -117,21 +119,29 @@ public class SC_PlayerShoot : MonoBehaviour
         {
             playerProperties.canShoot = false;
         }
-
+        
     }
 
     public void Shoot()
     {
-        GameObject bullet = SC_ObjectPooler.SharedInstance.GetPooledObject("Bullet");
-        if (bullet != null)
-        {
-            bullet.transform.position = muzzlePos.transform.position;
-            bullet.transform.rotation = muzzlePos.transform.rotation;
-            bullet.SetActive(true);
+        
+            Debug.Log("FIRED!");
+            GameObject bullet = SC_ObjectPooler.SharedInstance.GetPooledObject("Bullet");
+            shootRateCount = playerProperties.shootRate;
+            playerUpperAnim.SetTrigger("Shoot");
+            playerAim.aimKick();
+            playerProperties.ammoInMag--;
+            //gunkick
+            if (bullet != null)
+            {
+                bullet.transform.position = muzzlePos.transform.position;
+                bullet.transform.rotation = muzzlePos.transform.rotation;
+                bullet.SetActive(true);
 
-            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * playerProperties.bulletSpeed);
-
-
-        }
+                bullet.GetComponent<SC_Projectile>().damage = playerProperties.shootDamage;
+                bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * playerProperties.bulletSpeed);
+            }
+        
+        
     }
 }
