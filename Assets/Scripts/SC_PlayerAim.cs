@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class SC_PlayerAim : MonoBehaviour
 {
-    public static SC_PlayerAim SharedInstance;
     SC_PlayerProperties playerProperties;
     //GameObject aimTarget;
+    GameObject cameraHolder;
+    GameObject cameraHolder2;
     GameObject crosshair;
     GameObject gunCrosshair;
+    Vector3 initialGunCrosshairPos;
+    public GameObject gunSight;
     GameObject head;
     GameObject arm;
+    GameObject leftArm;
 
     Vector3 cursor;
     Vector3 crosshairPos;
@@ -18,17 +22,30 @@ public class SC_PlayerAim : MonoBehaviour
     public Vector3 aimDir;
     float angle;
 
+    //Sway
+    GameObject gunSway;
+    Vector3 nextSwayPos;
+    public float lerpPara = 0;
+
+
+    public float aimRadius;
+
    float defaultScaleX;
     // Start is called before the first frame update
     void Start()
     {
-        SharedInstance = this;
         crosshair = GameObject.Find("Crosshair");
+        gunSway = GameObject.Find("GunSway");
         gunCrosshair = GameObject.Find("GunCrosshair");
+        gunSight = GameObject.Find("GunSight");
         head = GameObject.Find("Player_Head");
         arm = GameObject.Find("Player_Upper");
+        cameraHolder = GameObject.Find("Camera Holder");
+        cameraHolder2 = GameObject.Find("Camera Holder 2");
         playerProperties = gameObject.GetComponent<SC_PlayerProperties>();
         defaultScaleX = transform.localScale.x;
+        nextSwayPos = Random.insideUnitSphere;
+
 
     }
 
@@ -42,23 +59,67 @@ public class SC_PlayerAim : MonoBehaviour
 
     void CrosshairUpdate()
     {
-        defaultAimPos = cursor + playerProperties.defaultAimOffset;
-
+        defaultAimPos = cursor;
+        gunSight.transform.localPosition = playerProperties.currentGunInfo.defaultAimOffset;
         gunCrosshair.SetActive(playerProperties.isAiming);
         if (!playerProperties.isAiming)
         {
-            gunCrosshair.transform.position = defaultAimPos;
+            //gunCrosshair.transform.position = defaultAimPos;
         }
         if (gunCrosshair.transform.position != defaultAimPos)
         {
-            gunCrosshair.transform.position = Vector3.Lerp(gunCrosshair.transform.position, defaultAimPos, Time.deltaTime);
+            gunCrosshair.transform.position = Vector3.Lerp(gunCrosshair.transform.position, defaultAimPos, playerProperties.currentGunInfo.recoilRecovery * /*Time.deltaTime **/ Mathf.Sin(Time.deltaTime));
         }
+        //sway
+
+        if (lerpPara < playerProperties.currentGunInfo.swaySpeed)
+        {
+            lerpPara += Time.deltaTime;
+            gunSway.transform.localPosition = Vector2.Lerp(gunSway.transform.localPosition, nextSwayPos*playerProperties.currentGunInfo.swayRadius, Mathf.Sin(Time.deltaTime)/12);
+        }
+        else
+        {
+            nextSwayPos = Random.insideUnitSphere;
+            lerpPara = 0;
+
+        }
+
+        //if (lerpPara <= 1f)
+        //{
+        //    lerpPara += Mathf.Sin(Time.deltaTime * 2/** swaySpeed)*/);
+        //    gunSway.transform.position = Vector3.Lerp(gunSway.transform.localPosition, nextSwayPos, /*swaySpeed*/lerpPara);
+        //}
+        //else
+        //{
+        //    nextSwayPos = gunSway.transform.localPosition + Random.insideUnitSphere;
+        //    lerpPara = 0;
+
+        //}
+        //{
+        //    lerpPara += Time.deltaTime /* * swaySpeed*/;
+        //    if (lerpPara >= 0.9)
+
+        //    {
+        //        initialPos = gunCrosshair.transform.position;
+        //        nextPos = defaultAimPos += Random.insideUnitSphere /* * swayRadius*/;
+        //        lerpPara = 0;
+
+        //    }
+        //    if (gunCrosshair.transform.position != defaultAimPos)
+        //    {
+        //        gunCrosshair.transform.position = Vector3.Lerp(initialPos, nextPos, 30 * lerpPara);
+        //    }
+
+
+        //}
 
     }
 
-    public void aimKick()
+    public IEnumerator aimKick()
     {
-        gunCrosshair.transform.position += new Vector3(0, playerProperties.recoilKick, 0);
+        yield return new WaitForSeconds(0.04f);
+        gunCrosshair.transform.position += new Vector3(0, playerProperties.currentGunInfo.recoilKick, 0)
+            + Random.insideUnitSphere * playerProperties.currentGunInfo.recoilKick /** Mathf.Sqrt(Random.Range(0.0f, 1.0f))*/;
     }
 
     void LookAt()
@@ -87,7 +148,8 @@ public class SC_PlayerAim : MonoBehaviour
 
         {
             transform.localScale = new Vector2(-defaultScaleX, transform.localScale.y);
-            if (SC_PlayerProperties.SharedInstance.allowLookAt)
+
+            if (playerProperties.allowArmLookAt)
             {
                 arm.transform.localScale = new Vector2(-1, -1);
 
@@ -95,7 +157,6 @@ public class SC_PlayerAim : MonoBehaviour
             else
             {
                 arm.transform.localScale = new Vector2(1, 1);
-
             }
 
             head.transform.localScale = new Vector2(1, 1);
@@ -107,11 +168,10 @@ public class SC_PlayerAim : MonoBehaviour
 
         }
 
-
-        //if (SC_PlayerProperties.SharedInstance.isAiming)
-        if (SC_PlayerProperties.SharedInstance.allowLookAt)
+        if (playerProperties.allowArmLookAt)
         {
             arm.transform.eulerAngles = new Vector3(0, 0, angle);
+
 
         }
         else
@@ -119,5 +179,18 @@ public class SC_PlayerAim : MonoBehaviour
             arm.transform.eulerAngles = new Vector3(0, 0, 0);
 
         }
+
+        if (Input.GetMouseButton(1))
+        {
+            cameraHolder2.transform.position = Vector3.Lerp(cameraHolder.transform.position, new Vector3(crosshairPos.x, crosshairPos.y, cameraHolder.transform.position.z), 0.4f);
+
+        }
+        else
+        {
+            cameraHolder2.transform.localPosition = Vector3.Lerp(cameraHolder2.transform.localPosition, Vector3.zero, 10* Time.deltaTime);
+
+        }
+
+
     }
 }

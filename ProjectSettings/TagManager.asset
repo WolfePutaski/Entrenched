@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Bullet
   - EnemySpawnPoint
+  - Gun
+  - Wall
+  - Pickup
+  - AmmoPickup
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - Bullet
   - Enemy
   - MeleeHitBox
-  - 
+  - World
   - 
   - 
   - 
@@ -43,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 98994199
     locked: 0

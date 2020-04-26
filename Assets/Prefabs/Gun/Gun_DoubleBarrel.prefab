@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8605403808202302776
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2859004987937073599, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3777367310593676322, guid: 563128ee397c1e341ae8f1a7d2b61ab3,
+        type: 3}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442395199297815949, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295777492269930078, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_Name
+      value: Gun_DoubleBarrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.weaponAnim
+      value: 
+      objectReference: {fileID: 22100000, guid: 30b09fee70025be4eae491f4ab8e1a6a,
+        type: 2}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.handType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.defaultAimOffset.y
+      value: 0.0764
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.shotType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.shotshellProperties.pelletSpread
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.shotshellProperties.pelletCount
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.shootDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.criticalModifier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.magSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.relaodType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.recoilKick
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.recoilRecovery
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.swayRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.swaySpeed
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.bulletSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.shootSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3742693d0ffc1f04587909836dff6adc, type: 3}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.maxReserveAmmo
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877665594312525489, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: wpnInformation.penetration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544533551492415922, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.3805449
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544533551492415922, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.71063864
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544533551492415922, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544533551492415922, guid: 477e89b20b00d9645837870d63950a47,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.33666667
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 477e89b20b00d9645837870d63950a47, type: 3}

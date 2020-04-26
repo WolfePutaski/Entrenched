@@ -6,6 +6,7 @@ public class SC_CameraController : MonoBehaviour
 {
     Animator cameraAnim;
     GameObject cam;
+    GameObject cameraHolder2;
     Transform playerPos;
     Vector3 playPos;
 
@@ -28,7 +29,7 @@ public class SC_CameraController : MonoBehaviour
     void FixedUpdate()
     {
         FollowPlayer();
-        //transform.position = new Vector3(playerPos.position.x, yOffset, transform.position.z);
+
 
 
     }
@@ -40,6 +41,8 @@ public class SC_CameraController : MonoBehaviour
 
         transform.position = smoothPos;
     }
+
+
 
     public void Shake()
     {

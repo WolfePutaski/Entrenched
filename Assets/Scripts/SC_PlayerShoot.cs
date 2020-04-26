@@ -23,6 +23,7 @@ public class SC_PlayerShoot : MonoBehaviour
 
 
     Animator playerUpperAnim;
+    Animator gunAutoAnim;
     GameObject playerArms;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class SC_PlayerShoot : MonoBehaviour
         playerProperties = gameObject.GetComponent<SC_PlayerProperties>();
         playerUpperAnim = GameObject.Find("Player_Upper").GetComponent<Animator>();
         playerAim = GetComponent<SC_PlayerAim>();
+        gunAutoAnim = GameObject.Find("Gun").GetComponent<Animator>();
         playerArms = GameObject.Find("Player_ArmR");
         muzzlePos = GameObject.Find("Muzzle").transform;
     }
@@ -48,12 +50,56 @@ public class SC_PlayerShoot : MonoBehaviour
 
     public void Reload()
     {
-        playerUpperAnim.SetTrigger("Reload");
-    }
+        if (playerProperties.reserveAmmo[playerProperties.currentWeaponSlot] > 0)
+        {
+            if (playerProperties.currentGunInfo.relaodType == WeaponInformation.RelaodType.Clip)
+            {
 
-    public void FinishReload()
-    {
-        playerProperties.ammoInMag = playerProperties.magSize;
+                playerUpperAnim.SetTrigger("ReloadEmpty");
+            }
+
+            if (playerProperties.currentGunInfo.relaodType == WeaponInformation.RelaodType.MagazineCloseBolt)
+            {
+                if (playerProperties.ammoInMag <= playerProperties.currentGunInfo.magSize && playerProperties.ammoInMag > 0)
+                {
+                    playerUpperAnim.SetTrigger("ReloadPartial");
+
+                }
+                if (playerProperties.ammoInMag == 0)
+                {
+                    playerUpperAnim.SetTrigger("ReloadEmpty");
+                }
+            }
+
+            if (playerProperties.currentGunInfo.relaodType == WeaponInformation.RelaodType.MagazineOpenBolt)
+            {
+                if (playerProperties.ammoInMag < playerProperties.currentGunInfo.magSize && playerProperties.ammoInMag > 0)
+                {
+                    playerUpperAnim.SetTrigger("ReloadPartial");
+
+                }
+                if (playerProperties.ammoInMag == 0)
+                {
+                    playerUpperAnim.SetTrigger("ReloadEmpty");
+                }
+            }
+
+
+            if (playerProperties.currentGunInfo.relaodType == WeaponInformation.RelaodType.SingleLoad)
+            {
+                if (playerProperties.ammoInMag < playerProperties.currentGunInfo.magSize && playerProperties.ammoInMag > 0)
+                {
+                    playerUpperAnim.SetTrigger("ReloadPartial");
+
+                }
+                if (playerProperties.ammoInMag == 0)
+                {
+                    playerUpperAnim.SetTrigger("ReloadEmpty");
+                }
+
+            }
+        }
+        
     }
 
 
@@ -62,7 +108,7 @@ public class SC_PlayerShoot : MonoBehaviour
         if (playerProperties.canShoot && playerProperties.ammoInMag > 0)
         {
             //Auto
-            if (playerProperties.fireType == FireType.Auto)
+            if (playerProperties.currentGunInfo.fireType == WeaponInformation.FireType.Auto)
             {
                 if (Input.GetMouseButton(0))
                 {
@@ -70,27 +116,41 @@ public class SC_PlayerShoot : MonoBehaviour
                 }
             }
 
-            if (playerProperties.fireType == FireType.Semi)
+            if (playerProperties.currentGunInfo.fireType == WeaponInformation.FireType.Semi)
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    shootRateCount = playerProperties.shootRate;
+                    shootRateCount = playerProperties.currentGunInfo.shootRate;
                     Shoot();
                 }
             }
 
-            if (playerProperties.fireType == FireType.Manual)
+            if (playerProperties.currentGunInfo.fireType == WeaponInformation.FireType.Manual)
             {
                 if (Input.GetMouseButtonDown(0))
                 { 
                     Shoot();
-                    playerUpperAnim.SetTrigger("ManualLoad");
+                    if (playerProperties.ammoInMag != 0)
+                    {
+                        playerUpperAnim.SetTrigger("ManualLoad");
+                    }
                 }
             }
 
 
 
         }
+        if (playerProperties.ammoInMag <= 0 && playerProperties.currentGunInfo.fireType != WeaponInformation.FireType.Manual)
+        {
+            playerUpperAnim.SetFloat("isEmpty",1);
+        }
+        else
+        {
+            playerUpperAnim.SetFloat("isEmpty", 0);
+
+        }
+
+
     }
 
     public void CheckCanShoot()
@@ -125,22 +185,52 @@ public class SC_PlayerShoot : MonoBehaviour
     public void Shoot()
     {
         
-            Debug.Log("FIRED!");
+        Debug.Log("FIRED!");
+        shootRateCount = playerProperties.currentGunInfo.shootRate;
+        playerUpperAnim.SetTrigger("Shoot");
+        playerAim.StartCoroutine("aimKick");
+        playerProperties.ammoInMag--;
+        if (playerProperties.currentGunInfo.shotType == WeaponInformation.ShotType.Pellets)
+        {
+            for (int i = 0; i < playerProperties.currentGunInfo.shotshellProperties.pelletCount; i++)
+            {
+                SpawnBullet(true);
+            }
+        }
+        if (playerProperties.currentGunInfo.shotType == WeaponInformation.ShotType.Bullet)
+        {
+            SpawnBullet(false);
+        }
+
+        void SpawnBullet(bool isPellet)
+        {
             GameObject bullet = SC_ObjectPooler.SharedInstance.GetPooledObject("Bullet");
-            shootRateCount = playerProperties.shootRate;
-            playerUpperAnim.SetTrigger("Shoot");
-            playerAim.aimKick();
-            playerProperties.ammoInMag--;
-            //gunkick
             if (bullet != null)
             {
+                var bulletProperties = bullet.GetComponent<SC_Projectile>();
+
                 bullet.transform.position = muzzlePos.transform.position;
                 bullet.transform.rotation = muzzlePos.transform.rotation;
                 bullet.SetActive(true);
+                if (isPellet == true)
+                {
+                    bullet.transform.Rotate(0, 0, Random.Range(-playerProperties.currentGunInfo.shotshellProperties.pelletSpread, playerProperties.currentGunInfo.shotshellProperties.pelletSpread));
+                    bulletProperties.damage = playerProperties.currentGunInfo.shootDamage / playerProperties.currentGunInfo.shotshellProperties.pelletCount;
 
-                bullet.GetComponent<SC_Projectile>().damage = playerProperties.shootDamage;
-                bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * playerProperties.bulletSpeed);
+                }
+
+                else
+                {
+                    bulletProperties.damage = playerProperties.currentGunInfo.shootDamage;
+
+                }
+
+
+                bulletProperties.penetration = playerProperties.currentGunInfo.penetration;
+                bulletProperties.criticalModifier = playerProperties.currentGunInfo.criticalModifier;
+                bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * playerProperties.currentGunInfo.bulletSpeed);
             }
+        }
         
         
     }

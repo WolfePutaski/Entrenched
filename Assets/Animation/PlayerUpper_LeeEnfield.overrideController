@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerUpper_LeeEnfield
+  m_Controller: {fileID: 9100000, guid: c23f82bf88152904fac70fee5192fcdb, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 31272d7aa0831084bb827c61529bb7bf, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 75a932e6a4934e64ebeb127d33dea74f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5929ff0b50e0ea94db3c1426bc4d1082, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a34d727316d1a7644859120973877cb1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2771416949395a64cbfb6aa364f0ad9f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 61932ffc70d3f324fa3598f4c5dfa9df, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: de1031d929fc7864599e2dab062dad53, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3ed811b7b226e5844ab5cf534e276901, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7d966d89a7393604a8157df1a1fae9c8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 62020cae55a8f6649ae073b9079177cb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3a96a9d125126b144951774367b7c4ca, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3ae0913225e57804e856079c5d51c110, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 699b6c2aab5ee2d449419b14173cb5ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: a38c7e74423a2fc4e9d4a4c695920472, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 41ad704f0b6e49340aec8b412bbae352, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 94d6324b623bef3428a09658101fbc32, type: 2}

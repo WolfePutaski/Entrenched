@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerUpper_TrenchGun
+  m_Controller: {fileID: 9100000, guid: c23f82bf88152904fac70fee5192fcdb, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 31272d7aa0831084bb827c61529bb7bf, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 01873124c1f5f8a46bd8e0ece6d3c810, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5929ff0b50e0ea94db3c1426bc4d1082, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b89472008be41234e93bec493540c8c6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 2771416949395a64cbfb6aa364f0ad9f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 778005158fbf06a4bba1da08bb7c5bc4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: de1031d929fc7864599e2dab062dad53, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 71cd2904896fd204d84d810e40ac4431, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 699b6c2aab5ee2d449419b14173cb5ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 53884ac2123c5f24eb28d98b3a40e6e6, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3a96a9d125126b144951774367b7c4ca, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 75e2b47fa9ef57740ac6e41643d552c0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 7d966d89a7393604a8157df1a1fae9c8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: dd21e21122031ee40b844f801530d872, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 41ad704f0b6e49340aec8b412bbae352, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 740c4bc3b856e1a4f82209916f190d2e, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: af7d32d133898e949a7f6969b941493b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8ce5931b9f0ac7b48b5df6eceebd2f47, type: 2}

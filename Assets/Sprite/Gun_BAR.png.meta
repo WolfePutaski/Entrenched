@@ -1,0 +1,242 @@
+fileFormatVersion: 2
+guid: e1c3de1ad1ad3d84cb24561d1dc94760
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4756302326384861820
+    second: Gun_BAR_0
+  - first:
+      213: 2124373835137928516
+    second: Gun_BAR_1
+  - first:
+      213: 3481246258138140305
+    second: Gun_BAR_2
+  - first:
+      213: 934776891824894704
+    second: Gun_BAR_0
+  - first:
+      213: -8217576147696204499
+    second: Gun_BAR_1
+  - first:
+      213: -8686500321173350842
+    second: Gun_BAR_2
+  - first:
+      213: 561777167666572637
+    second: Gun_BAR_3
+  - first:
+      213: -1850952143050367444
+    second: Gun_BAR_3
+  - first:
+      213: 5032302885848231197
+    second: Gun_BAR_4
+  - first:
+      213: 1900743515640426792
+    second: Gun_BAR_5
+  - first:
+      213: 5521644225602522809
+    second: Gun_BAR_4
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 350
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Gun_BAR_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 362
+        width: 563
+        height: 95
+      alignment: 9
+      pivot: {x: 0.287, y: 0.541}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f2777561aef8fc00800000000000000
+      internalID: 934776891824894704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gun_BAR_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 266
+        width: 563
+        height: 95
+      alignment: 9
+      pivot: {x: 0.287, y: 0.541}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2548d1480e45fd80800000000000000
+      internalID: -8217576147696204499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gun_BAR_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 171
+        width: 563
+        height: 95
+      alignment: 9
+      pivot: {x: 0.287, y: 0.541}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 646552f1bf9537780800000000000000
+      internalID: -8686500321173350842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gun_BAR_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 76
+        width: 563
+        height: 95
+      alignment: 9
+      pivot: {x: 0.287, y: 0.541}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e1c3925d81056e0800000000000000
+      internalID: -1850952143050367444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gun_BAR_4
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 0
+        width: 45
+        height: 76
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9be00231b22d0ac40800000000000000
+      internalID: 5521644225602522809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

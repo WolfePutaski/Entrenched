@@ -6,6 +6,7 @@ ScriptsOnlyBuild:
     - SC_EnemyAttack
     - SC_EnemyMovement
     - SC_EnemyProperties
+    - SC_GunProperties
     - SC_ObjectPooler
     - SC_PlayerAim
     - SC_PlayerMelee
@@ -24,6 +25,11 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.TextMeshPro.dll:
+    - TMPro.TMP_FontAsset
+    - TMPro.TMP_Settings
+    - TMPro.TMP_SpriteAsset
+    - TMPro.TMP_StyleSheet
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -56,6 +62,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 50
       Script: {instanceID: 0}
     - Class: 61
@@ -74,46 +82,58 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
+    - Class: 109
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11206}
+      Script: {instanceID: 11270}
     - Class: 114
-      Script: {instanceID: 11214}
-    - Class: 114
-      Script: {instanceID: 11420}
-    - Class: 114
-      Script: {instanceID: 11424}
+      Script: {instanceID: 11278}
     - Class: 114
       Script: {instanceID: 11484}
     - Class: 114
-      Script: {instanceID: 11524}
+      Script: {instanceID: 11488}
     - Class: 114
-      Script: {instanceID: 11694}
+      Script: {instanceID: 11548}
     - Class: 114
-      Script: {instanceID: 11832}
+      Script: {instanceID: 11588}
     - Class: 114
-      Script: {instanceID: 11988}
+      Script: {instanceID: 11758}
     - Class: 114
-      Script: {instanceID: 12214}
+      Script: {instanceID: 11896}
     - Class: 114
-      Script: {instanceID: 12268}
+      Script: {instanceID: 12052}
     - Class: 114
-      Script: {instanceID: 12386}
+      Script: {instanceID: 12086}
     - Class: 114
-      Script: {instanceID: 12486}
+      Script: {instanceID: 12280}
     - Class: 114
-      Script: {instanceID: 12824}
+      Script: {instanceID: 12334}
     - Class: 114
-      Script: {instanceID: 12870}
+      Script: {instanceID: 12452}
     - Class: 114
-      Script: {instanceID: 13108}
+      Script: {instanceID: 12552}
     - Class: 114
-      Script: {instanceID: 13382}
+      Script: {instanceID: 12842}
+    - Class: 114
+      Script: {instanceID: 12860}
+    - Class: 114
+      Script: {instanceID: 12890}
+    - Class: 114
+      Script: {instanceID: 12936}
+    - Class: 114
+      Script: {instanceID: 13176}
+    - Class: 114
+      Script: {instanceID: 13380}
     - Class: 114
       Script: {instanceID: 13450}
     - Class: 114
-      Script: {instanceID: 13560}
+      Script: {instanceID: 13518}
     - Class: 114
-      Script: {instanceID: 13580}
+      Script: {instanceID: 13598}
+    - Class: 114
+      Script: {instanceID: 13630}
+    - Class: 114
+      Script: {instanceID: 13650}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -126,6 +146,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
+    - Class: 221
+      Script: {instanceID: 0}
     - Class: 222
       Script: {instanceID: 0}
     - Class: 223
@@ -137,7 +159,7 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
-      Hash: 959cfd07e580ed42e49127437a165fdd
+      Hash: c47588f8eeae2eae076d7bc0a33256a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SC_PlayerProperties
@@ -581,7 +603,7 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 326f30ed69528ac687a4babf793ff4f1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SC_PlayerAim
@@ -743,6 +765,12 @@ ScriptsOnlyBuild:
     className: EventTrigger
   - hash:
       serializedVersion: 2
+      Hash: 890ff639d0e6bd5ebd295d492a139361
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SC_GunProperties
+  - hash:
+      serializedVersion: 2
       Hash: 8649814970b42d345b89944b862453cc
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -810,4 +838,4 @@ ScriptsOnlyBuild:
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: D:/IDD/2019-2/IDD228 Aj.Real/Project ENTRENCHED/Build/ENTRENCHED.exe
+  playerPath: D:/IDD/2019-2/IDD228 Aj.Real/Project ENTRENCHED/Entrenchedv0.05/ENTRENCHED.exe

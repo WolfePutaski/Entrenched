@@ -14,6 +14,7 @@ public class SC_Cheat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        QualitySettings.vSyncCount = 1;
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

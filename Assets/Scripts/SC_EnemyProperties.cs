@@ -70,12 +70,13 @@ public class SC_EnemyProperties : MonoBehaviour
         //    regenDelayCount -= Time.deltaTime;
         //}
 
-        if (HP<= 0)
+        if (HP <= 0)
         {
             CanMove = false;
             canAttack = false;
             enemyAnim.SetTrigger("Die");
             gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            //gameObject.tag = "Untagged";
         }
 
 
@@ -84,12 +85,25 @@ public class SC_EnemyProperties : MonoBehaviour
     public void TakeDamage(float damage, float push)
     {
         //regenDelayCount = regenDelay;
-        HP -= damage;
+        if (HP > 0)
+        {
+            HP -= damage;
 
-        CanMove = false;
-        enemyPhysics.velocity = new Vector2(0, enemyPhysics.velocity.y);
-        enemyPhysics.AddForce(Vector2.right * push);
-        enemyAnim.SetTrigger("Hurt");
+            CanMove = false;
+            enemyPhysics.velocity = new Vector2(0, enemyPhysics.velocity.y);
+            enemyPhysics.AddForce(Vector2.right * push);
+            enemyAnim.SetTrigger("Hurt");
+        }
+
+
+
+        //if (HP <= 0)
+        //{
+        //    CanMove = false;
+        //    canAttack = false;
+        //    enemyAnim.SetTrigger("Die");
+        //    gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        //}
     }
 
     public void HealthRegen()
